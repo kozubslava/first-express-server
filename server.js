@@ -1,4 +1,6 @@
 const express = require("express");
+const yup = require("yup");
+
 const app = express();
 
 const books = [
@@ -20,11 +22,26 @@ const books = [
   },
 ];
 
-app.get('/books', (req, res) => {
+app.get("/books", (req, res) => {
   res.send(books);
 });
 // app.get("./book");
-app.post('/books',);
+const bodyParserMiddleware = express.json();
+
+const BOOK_VALIDATION = yup.object({
+  name: yup.string().required(),
+  author: yup.string().required(),
+});
+
+app.post("/books", bodyParserMiddleware, (req, res, next) => {
+  BOOK_VALIDATION.validate(req.body)
+    .then((validateBook) => {
+      res.send(validateBook);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
 // app.put();
 // app.delete();
 

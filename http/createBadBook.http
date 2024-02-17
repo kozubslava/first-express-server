@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "name": "3",
-    "author": "Ada",
+    "author": "",
     "description": "retyu ryrtyrtyrty rtyrtyrt",
     "numberOfPages": 200,
     "price": 1000,
