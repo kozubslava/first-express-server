@@ -1,0 +1,11 @@
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+    "name": "3",
+    "author": "Ada",
+    "description": "retyu ryrtyrtyrty rtyrtyrt",
+    "numberOfPages": "200",
+    "price": "1000",
+    "availability": "true",
+  },
