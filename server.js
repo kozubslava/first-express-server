@@ -1,5 +1,6 @@
 const express = require("express");
-const yup = require("yup");
+const { validateCreateBookMW } = require("./middlewares/book.mw");
+
 
 const app = express();
 
@@ -22,26 +23,23 @@ const books = [
   },
 ];
 
-app.get("/books", (req, res) => {
+app.get("/books", (req, res, next) => {
   res.send(books);
 });
 // app.get("./book");
 const bodyParserMiddleware = express.json();
 
-const BOOK_VALIDATION = yup.object({
-  name: yup.string().required(),
-  author: yup.string().required(),
-});
 
-app.post("/books", bodyParserMiddleware, (req, res, next) => {
-  BOOK_VALIDATION.validate(req.body)
-    .then((validateBook) => {
-      res.send(validateBook);
-    })
-    .catch((err) => {
-      res.send(err.message);
-    });
-});
+
+app.post("/books",
+  bodyParserMiddleware, validateCreateBookMW,
+  (req, res, next) => {
+    const newBook = req.book;
+    newBook.id = books.length;
+    books.push(newBook);
+    res.send(newBook);
+  }
+);
 // app.put();
 // app.delete();
 
