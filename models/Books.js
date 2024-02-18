@@ -1,5 +1,6 @@
 let books = [
   {
+    id: 0,
     name: "1",
     author: "Daryna",
     description: "asdasdasdas asd asdasd asdasd",
@@ -7,14 +8,7 @@ let books = [
     price: 99,
     availability: true,
   },
-  {
-    name: "2",
-    author: "Victor",
-    description: "ertert ertert",
-    numberOfPages: 10,
-    price: 50,
-    availability: true,
-  },
+  
 ];
 
 class Book {
@@ -27,15 +21,32 @@ class Book {
     return newBook;
   }
 
-  static async findeOne() {}
+  static async findeOne(id) {
+    const book = books.find((book) => book.id === id);
+    return book;
+  }
 
   static async findeAll() {
     return books;
   }
 
-  static async update() {}
+  static async update(id, newBookData) {
+    books = books.map((book) => {
+      if (book.id !== id) {
+        return book;
+      }
+      const updateBook = { ...book, ...newBookData };
+      return updateBook;
+    });
+    const updateBook = await Book.findeOne(id);
+    return updateBook;
+  }
 
-  static async delete() {}
+  static async delete(id) {
+    const delitedBook = await Book.findeOne(id);
+    books = books.filter((book) => book.id !== id);
+    return delitedBook;
+  }
 }
 
 module.exports = Book;
