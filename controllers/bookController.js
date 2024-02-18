@@ -1,29 +1,13 @@
-const books = [
-  {
-    name: "1",
-    author: "Daryna",
-    description: "asdasdasdas asd asdasd asdasd",
-    numberOfPages: 20,
-    price: 99,
-    availability: true,
-  },
-  {
-    name: "2",
-    author: "Victor",
-    description: "ertert ertert",
-    numberOfPages: 10,
-    price: 50,
-    availability: true,
-  },
-];
+const Book = require("../models/Books");
 
-module.exports.getBooks = (req, res) => {
+module.exports.getBooks = async (req, res) => {
+  const books = await Book.findeAll();
+
   res.send(books);
 };
 
-module.exports.createBook = (req, res, next) => {
-  const newBook = req.book;
-  newBook.id = books.length;
-  books.push(newBook);
+module.exports.createBook = async (req, res, next) => {
+  const newBook = await Book.create(req.book);
+
   res.send(newBook);
 };
