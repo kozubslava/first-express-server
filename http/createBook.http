@@ -2,7 +2,7 @@ POST http://localhost:3000/books
 Content-Type: application/json
 
 {
-    "name": "3d",
+    "name": "3sdfsd",
     "author": "Ada",
     "description": "retyu ryrtyrtyrty rtyrtyrt",
     "numberOfPages": 200,
