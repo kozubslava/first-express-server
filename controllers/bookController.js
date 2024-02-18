@@ -25,3 +25,13 @@ module.exports.deleteBook = async (req, res, next) => {
 
   res.send(delitedBook);
 };
+
+module.exports.updateBook = async (req, res, next) => {
+  const {
+    params: { id },
+    body,
+  } = req;
+
+  const updatedBook = await Book.update(+id, body);
+  res.send(updatedBook);
+};
